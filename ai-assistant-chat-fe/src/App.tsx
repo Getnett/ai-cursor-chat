@@ -37,6 +37,11 @@ function App() {
     setIsLoadingAssistants(true);
     getAssistants()
       .then((assistants) => {
+        if (assistants.error) {
+          throw new Error(
+            assistants.error.message || "Failed to fetch assistants"
+          );
+        }
         setAssistants(assistants);
         // Optionally set the first assistant as default
         if (assistants.length > 0) {
